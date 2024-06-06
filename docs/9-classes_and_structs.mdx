@@ -49,6 +49,32 @@ it's not necessary to use this to access members within the object's methods, un
 :::
 
 
+
+### Constructor and Destructor
+
+```cpp
+#include <iostream>
+
+class Player {
+public:
+        int x, y;
+        int speed;
+
+        // Constructor
+        Player(int x, int y) {
+                this->x = x;
+                this->y = y;
+                std::cout << "Player created at position (" << x << ", " << y << ")" << std::endl;
+        }
+
+        // Destructor
+        ~Player() {
+                std::cout << "Player at position (" << x << ", " << y << ") is being destroyed." << std::endl;
+        }
+};
+```
+
+
 ### `static` in context of classes
 
 `static` keyword in context of classes is used to define a member that is shared by all objects of the class.  It is just like
