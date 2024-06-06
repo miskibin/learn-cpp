@@ -32,27 +32,72 @@ void function(){
 
 ```
 
-### Static keyword
-If keyword `static` is used in a function declaration, it will mean that this code is only visible in the file where it is defined. 
-It will be just internal. 
-so:
+### Static and Extern Keywords
+
+In C++, the `static` and `extern` keywords are used to control the visibility and linkage of variables and functions.
+
+#### Static Keyword
+
+The `static` keyword, when used in a function declaration, restricts the visibility of the function to the file in which it is defined. This means that the function cannot be called from other files, even if they include the header file where the function is declared. This is useful when you want to keep a function private to a file and prevent it from being used elsewhere.
+
+Here's an example:
+
 ```cpp
+// File: main.cpp
 
+static void someFunction() {
+    Log("Hello"); // This function is not defined anywhere.
+}
 
-void someFunction(){
-    Log("Hello");// This function is not defined anywhere.
-};
-
-int main(){
+int main() {
+    someFunction(); // This will work.
+    return 0;
 }
 ```
-Will throw an error. Even that someFUnction is not used. It may be used in another file. 
 
 ```cpp
-static void someFunction(){
-    Log("Hello");// This function is not defined anywhere.
-};
+// File: anotherFile.cpp
 
+extern void someFunction(); // Trying to declare the function from main.cpp
+
+int anotherFunction() {
+    someFunction(); // This will throw an error because someFunction is static in main.cpp and can't be accessed here.
+    return 0;
+}
+```
+
+In the above example, `someFunction` is declared as `static` in `main.cpp`, so it can only be called within `main.cpp`. If we try to declare it in `anotherFile.cpp` using `extern` and call it, it will throw an error.
+
+#### Extern Keyword
+
+The `extern` keyword is used to declare a variable or function in another file. This is useful when you want to use a function or variable defined in one file in another file.
+
+Here's an example:
+
+```cpp
+// File: main.cpp
+
+void someFunction() {
+    Log("Hello"); // This function is not defined anywhere.
+}
+
+int main() {
+    return 0;
+}
+```
+
+```cpp
+// File: anotherFile.cpp
+
+extern void someFunction(); // Declaring the function from main.cpp
+
+int anotherFunction() {
+    someFunction(); // This will work because someFunction is not static in main.cpp and can be accessed here.
+    return 0;
+}
+```
+
+In this example, `someFunction` is not declared as `static` in `main.cpp`, so it can be declared in `anotherFile.cpp` using `extern` and called successfully.
 int main(){
 }
 ```
