@@ -60,7 +60,7 @@ A translation unit is a single source file and all the files that it includes, e
 
 Create assembly output in hex. 
 
-::: note
+:::note
 It is possible to show pretty assembly code 
 `objdump -d -M intel -S file.o`
 :::

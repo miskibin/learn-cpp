@@ -1,23 +1,54 @@
+import {TabItem} from '@theme/Tabs';
 # Classes
 
 ### Definition
+<Tabs
+    defaultValue="class"
+    values={[
+        {label: 'Class', value: 'class'},
+        {label: 'Struct', value: 'struct'},
+    ]}>
+
+<TabItem value="class">
 
 ```cpp
 class Player {
 public:
-    int x, y;
-    int speed;
-    
-    void Move(int xa, int ya) {
-        x += xa * speed; 
-        y += ya * speed;
-    }
+        int x, y;
+        int speed;
+        
+        void Move(int xa, int ya) {
+                x += xa * speed; 
+                y += ya * speed;
+        }
 };
 ```
+</TabItem>
+
+<TabItem value="struct">
+
+```cpp
+struct Player {
+        int x, y;
+        int speed;
+        
+        void Move(int xa, int ya) {
+                x += xa * speed; 
+                y += ya * speed;
+        }
+};
+```
+</TabItem>
+
+</Tabs>
 
 :::tip Why don't we need `this` keyword here?
 it's not necessary to use this to access members within the object's methods, unless there's a naming conflict.
 :::
 
-# Structs
+
+## Why do we need ctructs at all.
+
+Becouse of backward compatibility with C language. In C language there are no classes, so structs are used to define data structures. In C++ structs are used to define data structures as well, but they can also have member functions and access specifiers.
+
 
