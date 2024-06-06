@@ -1,0 +1,20 @@
+# Classes
+
+### Definition
+
+```cpp
+class Player {
+public:
+    int x, y;
+    int speed;
+    
+    void Move(int xa, int ya) {
+        x += xa * speed; 
+        y += ya * speed;
+    }
+};
+```
+
+:::tip Why don't we need `this` keyword here?
+it's not necessary to use this to access members within the object's methods, unless there's a naming conflict.
+:::

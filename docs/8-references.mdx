@@ -1,0 +1,74 @@
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+# References in C++
+
+### What is a reference?
+A reference in C++ is an **alias**, or an alternative name, for an existing variable. Once a reference is initialized to a variable, either the variable name or the reference name can be used to refer to the variable.
+
+#### Example
+```cpp
+int x = 5; // Declare an integer variable
+int &ref = x; // Declare a reference to the variable
+LOG(ref); // Outputs: 5
+LOG(&ref); // Outputs: memory address of x (e.g., 0000006CC94FFAF0)
+```
+
+:::warning references are immutable
+Once a reference is initialized to a variable, it cannot be changed to refer to another variable. Pointers can.
+:::
+
+### Using Pointers and References in Functions
+
+<Tabs
+  defaultValue="pointers"
+  values={[
+    {label: 'Using Pointers', value: 'pointers'},
+    {label: 'Using References', value: 'references'},
+  ]
+}>
+
+<TabItem value="pointers">
+
+```cpp
+void increment(int* value) {
+    // value++; // This would increment the address of the pointer, not the value it points to.
+    (*value)++; // This increments the value that the pointer points to.
+}
+
+int main() {
+    int x = 5;
+    increment(&x); // Pass the address of x to the function
+    LOG(x); // Outputs: 6
+}
+```
+
+</TabItem>
+
+<TabItem value="references">
+
+```cpp
+void increment(int  &value) {
+    value++;
+}
+
+int main() {
+    int x = 5;
+    increment(x);
+    LOG(x); // Outputs: 6
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+
+
+### When to Use References Over Pointers
+
+1. **Simplicity**: References are simpler to use than pointers.
+2. **Safety**: References cannot be `NULL` and are guaranteed to refer to a valid object.
+3. **Readability**: References make the code more readable and less cluttered.
