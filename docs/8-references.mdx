@@ -65,6 +65,18 @@ int main() {
 
 </Tabs>
 
+:::warning arrays
+arrays decay to pointers when passed to functions, so they can't be passed by reference in the same way as other types. However, you can pass an array by reference by wrapping it in a std::array or std::vector, or by using a reference to a pointer.
+
+Workaround:
+```cpp
+void increment(int (&arr)[5]) {
+    for (int i = 0; i < 5; i++) {
+        arr[i]++;
+    }
+}
+:::
+
 
 
 ### When to Use References Over Pointers

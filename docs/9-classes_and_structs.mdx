@@ -1,7 +1,7 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Classes
+# Classes and structures
 
 ### Definition
 <Tabs
@@ -84,6 +84,95 @@ On the other hand, when you use an initializer list, the member variables are di
 
 #### When to not use initializer list?
 If you need to perform some complex logic to compute the initial value of a member variable, you may need to use the constructor body to do so. However, in most cases, using an initializer list is preferred for efficiency and clarity.
+
+### Inheritance
+
+```cpp
+class Player {
+        public:
+        int x, y;
+        int speed;
+
+        Player(int x, int y) : x(x), y(y) {}
+
+        void Move(int xa, int ya) {
+                x += xa * speed; 
+                y += ya * speed;
+        }
+};
+
+class Enemy : public Player {
+        public:
+        Enemy(int x, int y) : Player(x, y) {}
+
+        void Attack(Player &player) {
+                player.x = 0;
+                player.y = 0;
+        }
+};
+```
+
+### Virtual methods
+
+```cpp
+class Entity {
+        public:
+        virtual void Print() const {
+                std::cout << "Entity" << std::endl;
+        }
+};
+
+class Player : public Entity {
+        public:
+        void Print() const override {
+                std::cout << "Player" << std::endl;
+        }
+};
+```
+In this case, the `override` keyword is optional, but it is good practice to use it to indicate that the method is intended to override a virtual method in the base class. If the method does not override a virtual method in the base class, the compiler will generate an error.
+
+:::tip Why do we need virtual methods?
+Virtual methods allow derived classes to provide their own implementation of a method defined in the base class. This is useful for polymorphism, where objects of different derived classes can be treated as objects of the base class, allowing for more flexible and extensible code.
+:::
+
+### Dunder methods?
+
+In cpp they are called operator overloading.
+
+```cpp
+class Entity {
+        public:
+        // __str__
+        std::ostream& operator<<(std::ostream& stream) {
+                stream << "Entity";
+                return stream;
+        }
+};
+```
+
+| Python        | C++                                                     |
+| ------------- | ------------------------------------------------------- |
+| `__init__`    | Constructor                                             |
+| `__del__`     | Destructor                                              |
+| `__str__`     | `operator<<` (ostream operator)                         |
+| `__eq__`      | `operator==`                                            |
+| `__ne__`      | `operator!=`                                            |
+| `__lt__`      | `operator<`                                             |
+| `__le__`      | `operator<=`                                            |
+| `__gt__`      | `operator>`                                             |
+| `__ge__`      | `operator>=`                                            |
+| `__add__`     | `operator+`                                             |
+| `__sub__`     | `operator-`                                             |
+| `__mul__`     | `operator*`                                             |
+| `__truediv__` | `operator/`                                             |
+| `__mod__`     | `operator%`                                             |
+| `__len__`     | Typically a member function like `size()` or `length()` |
+| `__getitem__` | `operator[]`                                            |
+| `__setitem__` | `operator[]`                                            |
+| `__call__`    | `operator()`                                            |
+
+Please note that not all Python dunder methods have direct equivalents in C++, and vice versa. The table above lists the most common ones.
+
 
 ### `static` in context of classes
 
