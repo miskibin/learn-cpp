@@ -46,6 +46,26 @@ std::cout << characters << std::endl;  // Hello, World!
 `char *str` is a pointer to a character, while `char str[]` is an array of characters. The main difference is that `char *str` is a pointer that can be reassigned to point to different memory locations, while `char str[]` is an array that has a fixed size and cannot be reassigned.
 :::
 
+### Modyfying char array
+
+
+Good:
+
+```cpp
+char name[] = "John";
+name[0] = 'M';
+std::cout << name << std::endl;  // Mohn
+```
+
+Bad (undefined behavior):
+
+```cpp
+char *name = "John";
+name[0] = 'M';  // Error: assignment of read-only location
+```
+
+
+
 
 ## String
 
@@ -78,7 +98,24 @@ firstName += " Doe";  // John Doe (string has `+=` operator)
 std::string name = string("John") + "Doe"; // also works
 ```
 
+
+
 # String literals
+
+## Chars:
+```cpp
+const wchar_t* wstr = L"Wide string"; // 2 bytes per character (Windows) 4 bytes (Linux)
+const char16_t* u16str = u"UTF-16 string"; // 2 bytes per character
+const char32_t* u32str = U"UTF-32 string";
+```
+
+## Strings 
+
+```cpp
+using namespace std::string_literals;
+
+std::string str = "Hello, World!"s + " I am a string"s;//this works! It is string now.
+```
 
 A string literal in C++ is a sequence of characters (including any escape sequences) surrounded by double quotes, optionally prefixed by `R`, `u8`, `u`, `U`, `L`. 
 
