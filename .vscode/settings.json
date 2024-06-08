@@ -2,6 +2,7 @@
     "files.associations": {
         "*.mdx": "markdown",
         "unordered_map": "cpp",
+        "algorithm": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
         "cctype": "cpp",
@@ -28,10 +29,11 @@
         "limits": "cpp",
         "list": "cpp",
         "locale": "cpp",
-        "map": "cpp",
         "memory": "cpp",
         "new": "cpp",
+        "optional": "cpp",
         "ostream": "cpp",
+        "print": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "system_error": "cpp",
@@ -53,9 +55,22 @@
         "xmemory": "cpp",
         "xstring": "cpp",
         "xtr1common": "cpp",
-        "xtree": "cpp",
         "xutility": "cpp",
-        "algorithm": "cpp",
-        "optional": "cpp"
-    }
+        "array": "cpp",
+        "*.tcc": "cpp",
+        "cwctype": "cpp",
+        "deque": "cpp",
+        "string": "cpp",
+        "functional": "cpp",
+        "memory_resource": "cpp",
+        "numeric": "cpp",
+        "random": "cpp",
+        "string_view": "cpp",
+        "numbers": "cpp",
+        "span": "cpp",
+        "variant": "cpp",
+        "bitset": "cpp",
+        "sstream": "cpp"
+    },
+    "C_Cpp.default.compilerPath": "C:\\msys64\\ucrt64\\bin\\g++.exe"
 }

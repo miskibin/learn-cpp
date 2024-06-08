@@ -1,17 +1,28 @@
-#include<iostream>
-#include<unordered_map>
-
-class Board
+#include"include/chess.hpp"
+#include <unordered_map>
+class DrawableBoard : public chess::Board 
 {
-private:
-    /* data */
-public:
-     const std::unordered_map<char,char> piece;
-    std::string pdn;
-    
-    Board(std::string pdn): pdn(pdn){};
-    void draw(char (&pieces)[64]);
-    void draw();
 
+    const std::unordered_map<char, std::string> piece{
+        {'p', "♟"},
+        {' ', " "},
+        {'r', "♜"},
+        {'n', "♞"},
+        {'b', "♝"},
+        {'q', "♛"},
+        {'k', "♚"},
+        {'P', "♙"},
+        {'R', "♖"},
+        {'N', "♘"},
+        {'B', "♗"},
+        {'Q', "♕"},
+        {'K', "♔"}};
+public:
+public:
+    DrawableBoard(std::string_view fen) : chess::Board(fen) {}  // This line uses chess::Board's constructor
+
+    std::vector<char> resolveFen(const std::string fen) const;
+    void draw() const;  
 };
-std::ostream& operator<<(std::ostream& os, const Board& board);
+
+std::ostream& operator<<(std::ostream& os, const DrawableBoard& board);
