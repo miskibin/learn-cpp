@@ -30,20 +30,6 @@ $ yarn start
 
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
-## Deployment
-
-We use GitHub Pages for hosting. To deploy the website, use the following command:
-
-```sh
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
-
-This command is a convenient way to build the website and push to the `gh-pages` branch.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
 ## Acknowledgments
 
 - The C++ course by [The Cherno](https://www.youtube.com/watch?v=18c3MTX0PK0&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb&pp=iAQB) for providing the original learning material.
