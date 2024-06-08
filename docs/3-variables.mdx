@@ -75,7 +75,7 @@ int array[5] = {1, 2, 3, 4, 5};
 The size of the array is not always reliable. If you pass an array to a function, it decays into a pointer, and the size information is lost. You should always pass the size of the array along with the array to avoid buffer overflows and other memory-related issues.
 :::
 
-#### Pointers arithmetic
+### Pointers arithmetic
 
 ```cpp
 int array[5] = {1, 2, 3, 4, 5};
@@ -88,11 +88,10 @@ std::cout << *(ptr + 1) << std::endl;  // 2
 When you add an integer `1` to a pointer, the pointer is incremented by the size of the type it points to. In this case, `ptr` is an `int*`, so adding `1` to it increments the pointer by `sizeof(int)`  (4) bytes.
 :::
 
-#### New and Delete
+### New and Delete
 
-:::tip When to use new keyword?
+**When to use new keyword?**
 The `new` keyword is used to dynamically allocate memory on the heap. It is used when you need to allocate memory at runtime, and the size of the memory is not known at compile time. When you use `new`, you are responsible for releasing the memory using the `delete` keyword.
-:::
 
 ```cpp
 int main() {
@@ -162,7 +161,7 @@ Using a static array is better than a dynamic array because it is more efficient
 :::
 
 
-## Standart Arrays
+## Standard Arrays
 
 ```cpp
 #include <array>
