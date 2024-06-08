@@ -18,7 +18,8 @@ std::vector<char> DrawableBoard::resolveFen(const std::string fen) const
             rowIdx++;
         else
         {
-            if (isdigit(c)){
+            if (isdigit(c))
+            {
                 piecesVec.insert(piecesVec.end(), c - '0', ' ');
                 colIdx += c - '0';
             }
@@ -33,22 +34,40 @@ std::vector<char> DrawableBoard::resolveFen(const std::string fen) const
 }
 
 
+
+
 void DrawableBoard::draw() const
 {
     auto fen = this->getFen();
-    auto pieces = resolveFen(fen);
+    draw(fen);    
+    }
+
+void DrawableBoard::draw(std::string fen) const
+{
+auto pieces = resolveFen(fen);
     for (auto i = 0; i < 8; i++)
     {
         for (auto j = 0; j < 8; j++)
         {
             char currentPiece = pieces[8 * i + j];
             // std::cout << " | " << pieces[8 * i + j];
-            if (piece.count(currentPiece) > 0) {
+            if (piece.count(currentPiece) > 0)
+            {
                 std::cout << " | " << piece.at(currentPiece);
-            } else {
-                std::cout << " | " << " ";  // Print a space if the piece is not in the map
+            }
+            else
+            {
+                std::cout << " | " << " "; // Print a space if the piece is not in the map
             }
         }
         std::cout << " |" << std::endl;
     }
+
+}
+
+std::string DrawableBoard::moveFromUci(const std::string uci)
+{
+    chess::Move move = chess::uci::uciToMove(*this, uci);
+    this->makeMove(move);
+    return uci;
 }

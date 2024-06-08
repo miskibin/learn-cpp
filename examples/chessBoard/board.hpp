@@ -23,6 +23,8 @@ public:
 
     std::vector<char> resolveFen(const std::string fen) const;
     void draw() const;  
+    void draw(std::string fen) const;  
+    std::string moveFromUci(const std::string uci);
 };
 
 std::ostream& operator<<(std::ostream& os, const DrawableBoard& board);

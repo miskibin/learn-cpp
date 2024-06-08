@@ -1,0 +1,70 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Strings and string literals
+
+## Char
+
+A `char` is a single byte of data, which can represent a single character. In C++, a `char` can be used to represent a character or a small integer. The ASCII table is a common way to map characters to integers. For example, the ASCII value of 'A' is 65, and 'a' is 97.
+
+Sure, here's how you can add tabs to your MDX file. The first tab will contain your current code, and the second tab will contain an example of an array of characters:
+
+
+<Tabs
+  defaultValue="tab1"
+  values={[
+    {label: 'Single Character', value: 'tab1'},
+    {label: 'Array of Characters', value: 'tab2'},
+  ]}
+>
+
+<TabItem value="tab1">
+
+```cpp
+char character = 'A';
+
+std::cout << character << std::endl;  // A
+std::cout << (int)character << std::endl;  // 65
+```
+
+</TabItem>
+
+<TabItem value="tab2">
+
+```cpp
+char *characters = "Hello, World!";
+// char characters[] = "Hello, World!";
+
+std::cout << characters << std::endl;  // Hello, World!
+```
+
+</TabItem>
+
+</Tabs>
+
+:::tip what is difference between `char *str` and `char str[]`?
+`char *str` is a pointer to a character, while `char str[]` is an array of characters. The main difference is that `char *str` is a pointer that can be reassigned to point to different memory locations, while `char str[]` is an array that has a fixed size and cannot be reassigned.
+:::
+
+
+## String
+
+A `string` is a sequence of characters. In C++, strings are represented by the `std::string` class, which is part of the C++ Standard Library. You can create a string by enclosing characters in double quotes.
+
+```cpp
+#include <string>
+
+std::string name = "John Doe";
+
+std::cout << name << std::endl;  // John Doe
+```
+
+How does computer know where the string ends?
+The computer knows where the string ends by using a null-terminator character (`\0`). The null-terminator is a special character that marks the end of a string. When the computer encounters a null-terminator, it knows that the string has ended.
+
+```cpp
+char str[2] = {'H', 'I'};
+std::cout << str << std::endl;  // HI�p���
+char str2[3] = {'H', 'I', '\0'}; // \0 is the null-terminator
+std::cout << str2 << std::endl;  // HI
+```
