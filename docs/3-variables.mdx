@@ -36,6 +36,12 @@ If you want to get length of the array you can use:
 int array[] = {1, 2, 3, 4, 5};
 int length = sizeof(array) / sizeof(array[0]); // 20/4 = 5
 ```
+
+
+:::warning Can you trust the size of the array?
+The size of the array is not always reliable. If you pass an array to a function, it decays into a pointer, and the size information is lost. You should always pass the size of the array along with the array to avoid buffer overflows and other memory-related issues.
+:::
+
 ## Primitive Casting
 
 In C++, you can perform casting between primitive types. This is often necessary when you want to convert one primitive type to another. There are two types of casting available for primitive types:
@@ -71,9 +77,6 @@ int i = (int)d;  // C-style casting from double to int
 int array[5] = {1, 2, 3, 4, 5};
 ```
 
-:::warning Can you trust the size of the array?
-The size of the array is not always reliable. If you pass an array to a function, it decays into a pointer, and the size information is lost. You should always pass the size of the array along with the array to avoid buffer overflows and other memory-related issues.
-:::
 
 ### Pointers arithmetic
 
