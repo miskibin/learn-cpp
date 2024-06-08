@@ -62,8 +62,8 @@ const config = {
       navbar: {
         title: 'C++ Tutorial',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/notes.png',
+          alt: 'C++ Tutorial Logo',
+          src: 'img/docusaurus.png',
         },
         items: [
           {

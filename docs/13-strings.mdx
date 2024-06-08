@@ -68,3 +68,25 @@ std::cout << str << std::endl;  // HI�p���
 char str2[3] = {'H', 'I', '\0'}; // \0 is the null-terminator
 std::cout << str2 << std::endl;  // HI
 ```
+
+#### Adding strings to each other
+
+```cpp
+std::string name = "John" + "Doe";  // Error: John is not considered as a string
+std::string firstName = "John";
+firstName += " Doe";  // John Doe (string has `+=` operator)
+std::string name = string("John") + "Doe"; // also works
+```
+
+# String literals
+
+A string literal in C++ is a sequence of characters (including any escape sequences) surrounded by double quotes, optionally prefixed by `R`, `u8`, `u`, `U`, `L`. 
+
+| Prefix         | Description                                                                     | Use Cases                                                                                     | Example                            |
+| -------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ---------------------------------- |
+| None (Regular) | A sequence of characters. Can include escape sequences like `\n` for a newline. | General purpose strings.                                                                      | `"Hello, World!\n"`                |
+| `R` (Raw)      | A sequence of characters that doesn't process escape sequences.                 | Strings that contain a lot of backslashes, such as regular expressions or Windows paths.      | `R"(C:\Users\Username\Documents)"` |
+| `u8` (UTF-8)   | A sequence of UTF-8 encoded characters.                                         | Working with Unicode text in a space-efficient manner.                                        | `u8"こんにちは"`                   |
+| `u` (UTF-16)   | A sequence of UTF-16 encoded characters.                                        | Working with Unicode text when you need more than the ASCII range but less than full Unicode. | `u"\u00B1"`                        |
+| `U` (UTF-32)   | A sequence of UTF-32 encoded characters.                                        | Working with Unicode text when you need to represent any Unicode character.                   | `U"\U0001F600"`                    |
+| `L` (Wide)     | A sequence of wide characters.                                                  | APIs that support international text, where each character may be more than one byte.         | `L"Привет"`                        |
