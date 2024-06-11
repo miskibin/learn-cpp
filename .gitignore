@@ -1,6 +1,11 @@
 # Dependencies
 /node_modules
 
+*/include/*
+*include/*
+examles/game2d/include/*
+/oatpp/*
+/oatpp/
 # Production
 /build
 
