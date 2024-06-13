@@ -72,18 +72,56 @@ public:
 };
 ```
 
-### Initializer
+### Initializer list
+
+
+
 ```cpp
 Player::Player(int x, int y) : x(x), y(y) {}
 ```
 :::tip Why initializer is better?
-When you initialize member variables in the constructor body, the member variables are first created using their default constructor and then assigned a value. This involves two operations - construction and assignment.
-On the other hand, when you use an initializer list, the member variables are directly initialized with the provided value, which involves only one operation. This can be more efficient, especially for classes with a large number of member variables or for member variables that are complex objects themselves.
+Initializing member variables in the constructor body involves two steps: default construction and assignment. Using an initializer list directly assigns the provided value, which is more efficient, especially for classes with many member variables or complex objects.
 :::
+
+```cpp
+class Player {
+public:
+        int x, y;
+        string name;
+
+        Player(int x, int y, string name) : x(x), y(y), name(name) {
+        }// OK
+        Player(int x, int y, string name) : x(x),  name(name),y(y) {
+        }// Not Ok, the order of the variables in the initializer list must match the order of the member variables in the class definition.
+};
+```
 
 
 #### When to not use initializer list?
 If you need to perform some complex logic to compute the initial value of a member variable, you may need to use the constructor body to do so. However, in most cases, using an initializer list is preferred for efficiency and clarity.
+
+
+
+### Instantiation
+
+#### On the stack
+
+```cpp
+{
+        Player player(5, 5);
+} // Destructor called here
+```
+
+#### On the heap
+
+```cpp
+Player* player = new Player(5, 5);
+```
+
+:::tip Should I use stack or heap?
+Use the stack for objects with a short lifetime, and the heap for objects with a long lifetime. **The stack is faster and more efficient**, but has limited size, while the heap is slower and less efficient, but has more space.
+:::
+
 
 ### Inheritance
 
