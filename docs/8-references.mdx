@@ -75,6 +75,7 @@ void increment(int (&arr)[5]) {
         arr[i]++;
     }
 }
+```
 :::
 
 
@@ -84,3 +85,21 @@ void increment(int (&arr)[5]) {
 1. **Simplicity**: References are simpler to use than pointers.
 2. **Safety**: References cannot be `NULL` and are guaranteed to refer to a valid object.
 3. **Readability**: References make the code more readable and less cluttered.
+
+
+### References in loops:
+
+
+```cpp
+
+for(auto &element : container){
+    // do something with element
+    element++; // this would increment the value of the element in the container
+}
+
+for (auto element : container){
+    // do something with element
+    element++; // this would increment the value of the copy of the element in the container
+}
+
+```
