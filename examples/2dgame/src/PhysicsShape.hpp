@@ -11,6 +11,7 @@ private:
     std::shared_ptr<spdlog::logger> logger;
 
 public:
+    virtual void move(sf::Vector2f velocity) = 0;
     float mass, restitution, friction;
     sf::Vector2f acceleration, velocity, windowSize;
     void applyForce(sf::Vector2f force)

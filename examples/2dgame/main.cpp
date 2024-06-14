@@ -1,4 +1,5 @@
 #include "circleWithPhisics.hpp"
+#include "environment.hpp"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <math.h>
@@ -13,6 +14,7 @@ int main() {
   sf::RenderWindow window(sf::VideoMode(800, 800), "Hello From SFML");
   window.setFramerateLimit(60);
   auto shape = std::make_unique<CircleWithPhysics>(33.f, window.getSize());
+  // auto shape = std::make_unique<CircleWithPhysics>(33.f, window.getSize());
   sf::Event event;
 
   // Load a font
@@ -26,6 +28,8 @@ int main() {
   text.setFillColor(sf::Color::White);
   text.setPosition(10, 10); // top-left corner
   sf::Clock clock;
+  Environment *env = Environment::getInstance();
+  env->addShape(shape.get());
 
   while (window.isOpen()) {
     std::stringstream ss;
@@ -40,7 +44,7 @@ int main() {
     while (window.pollEvent(event)) {
       shape->handleEvent(event);
     }
-    shape->update(60);
+    env->update(60);
   }
 
   return 0;
