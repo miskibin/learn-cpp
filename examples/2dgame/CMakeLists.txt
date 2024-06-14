@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.22)
 project(PhysicsSimulation)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -12,7 +12,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 endif()
 
 # Find SFML
-find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 add_executable(PhysicsSimulation main.cpp src/PhysicsShape.hpp src/circleWithPhisics.hpp src/constants.hpp src/environment.hpp)
 target_link_libraries(PhysicsSimulation sfml-graphics sfml-window sfml-system spdlog fmt)
 
