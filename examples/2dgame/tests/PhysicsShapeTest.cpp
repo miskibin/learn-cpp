@@ -1,40 +1,31 @@
-#include "../src/PhysicsShape.hpp"
-#include <SFML/System/Vector2.hpp>
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
+#include "PhysicsObject.hpp"
+#include "engine.hpp"
+#include <SFML/Graphics.hpp>
 
-class ConcretePhysicsShape : public PhysicsShape {
-public:
-  using PhysicsShape::PhysicsShape;
-  void checkBounds() override {}
-};
-
-class PhysicsShapeTest : public ::testing::Test {
-protected:
-  std::unique_ptr<ConcretePhysicsShape> shape;
-
-  void SetUp() override {
-    shape = std::make_unique<ConcretePhysicsShape>(
-        1.0f, 0.5f, 0.3f, sf::Vector2f(0, 0), sf::Vector2f(0, 0),
-        sf::Vector2u(800, 600));
-  }
-
-  void TearDown() override { shape.reset(); }
-};
-
-TEST_F(PhysicsShapeTest, ConstructorTest) {
-  EXPECT_EQ(shape->mass, 1.0f);
-  EXPECT_EQ(shape->restitution, 0.5f);
-  EXPECT_EQ(shape->friction, 0.3f);
-  EXPECT_EQ(shape->acceleration, sf::Vector2f(0, 0));
-  EXPECT_EQ(shape->velocity, sf::Vector2f(0, 0));
+// Test for PhysicsObject
+TEST(PhysicsObjectTest, ApplyForce) {
+  sf::CircleShape shape(50.f);
+  PhysicsObject obj(&shape);
+  sf::Vector2f initialAcceleration = obj.acceleration;
+  obj.applyForce(sf::Vector2f(10.f, 10.f));
+  ASSERT_EQ(obj.acceleration, initialAcceleration + sf::Vector2f(10.f, 10.f));
 }
 
-TEST_F(PhysicsShapeTest, ApplyForceTest) {
-  shape->applyForce(sf::Vector2f(1, 1));
-  EXPECT_EQ(shape->acceleration, sf::Vector2f(1, 1));
+// Test for Engine
+TEST(EngineTest, Singleton) {
+  sf::RenderWindow window(sf::VideoMode(800, 800), "Test Window");
+  Engine* engine1 = Engine::getInstance(window);
+  Engine* engine2 = Engine::getInstance(window);
+  ASSERT_EQ(engine1, engine2);
 }
 
-TEST_F(PhysicsShapeTest, ApplyImpulseTest) {
-  shape->applyImpulse(sf::Vector2f(1, 1));
-  EXPECT_EQ(shape->velocity, sf::Vector2f(1, 1));
+TEST(EngineTest, AddObject) {
+  sf::RenderWindow window(sf::VideoMode(800, 800), "Test Window");
+  Engine* engine = Engine::getInstance(window);
+  sf::CircleShape shape(50.f);
+  PhysicsObject obj(&shape);
+  engine->add(&obj);
+  // Assuming you have a method to get the objects
+  ASSERT_EQ(engine->getObjects().back(), &obj);
 }
