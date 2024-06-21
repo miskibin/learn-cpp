@@ -109,10 +109,6 @@ const config = {
         apiKey: '3c87c6d9203b5d6efde4aea5a1bc78ac',
         indexName: 'michalskibinski109io',
         contextualSearch: true,
-        replaceSearchResultPathname: {
-          from: '/docs/', // or as RegExp: /\/docs\//
-          to: '/',
-        },
         searchParameters: {},
         searchPagePath: 'search',
       },
