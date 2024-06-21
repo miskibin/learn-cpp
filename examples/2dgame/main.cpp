@@ -1,5 +1,6 @@
-#include "circleWithPhisics.hpp"
-#include "environment.hpp"
+#include "src/PhysicsObject.hpp"
+#include "src/controllablePhysicsObject.hpp"
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <math.h>
@@ -7,45 +8,48 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
 #include <sstream>
-int main() {
-  // setup logger
-  auto logger = spdlog::stdout_color_mt("main");
-  logger->set_level(spdlog::level::debug); // Set level to debug
-  sf::RenderWindow window(sf::VideoMode(800, 800), "Hello From SFML");
-  window.setFramerateLimit(60);
-  auto shape = std::make_unique<CircleWithPhysics>(33.f, window.getSize());
-  // auto shape = std::make_unique<CircleWithPhysics>(33.f, window.getSize());
-  sf::Event event;
+#include "src/eventHandler.hpp"
+#include "src/engine.hpp"
+#include "src/uiRenderer.hpp"
 
-  // Load a font
-  sf::Font font;
-  if (!font.loadFromFile("../resources/arial.ttf")) {
-    logger->error("Could not load font");
-  }
-  sf::Text text;
-  text.setFont(font);
-  text.setCharacterSize(24); // in pixels
-  text.setFillColor(sf::Color::White);
-  text.setPosition(10, 10); // top-left corner
-  sf::Clock clock;
-  Environment *env = Environment::getInstance();
-  env->addShape(shape.get());
+std::shared_ptr<spdlog::logger> setupLogger()
+{
+    auto logger = spdlog::stdout_color_mt("main");
+    logger->set_level(spdlog::level::debug); // Set level to debug
+    return logger;
+}
 
-  while (window.isOpen()) {
-    std::stringstream ss;
-    ss << "   Shape: " << shape->getPosition().x << " "
-       << shape->getPosition().y;
-    text.setString(ss.str());
-
-    window.clear();
-    window.draw(*shape);
-    window.draw(text); // draw the FPS text
-    window.display();
-    while (window.pollEvent(event)) {
-      shape->handleEvent(event);
+int main()
+{
+    sf::RenderWindow window(sf::VideoMode(800, 800), "Physics Engine");
+    window.setFramerateLimit(122);
+    UIRenderer uiRenderer(window);
+    Engine *engine = Engine::getInstance(window);
+    sf::RectangleShape rect(sf::Vector2f(50.f, 50.f));
+    rect.setFillColor(sf::Color::Red);
+    rect.setPosition(100.f, 100.f);
+    sf::CircleShape circ(25.f);
+    EventHandler eventHandler(window);
+    circ.setFillColor(sf::Color::Green);
+    ControllablePhysicsObject r {&rect, 1.0f, sf::Vector2f(0, Constants::G), sf::Vector2f(0, 0)};
+    PhysicsObject obj = PhysicsObject(&circ, 1.0f, sf::Vector2f(0, Constants::G), sf::Vector2f(0, 0));
+    engine->add(&r);
+    engine->add(&obj);
+    sf::Text fpsText = uiRenderer.configureText("FPS: ", 24, sf::Color::White, sf::Vector2f(10.f, 10.f));
+    sf::Clock clock;
+        sf::Event event;
+    while (window.isOpen())
+    {
+        eventHandler.handleEvents(engine->getControllableObjects());
+        
+        auto fps = 1.f / clock.restart().asSeconds();
+        fpsText.setString("FPS: " + std::to_string(static_cast<int>(fps)));
+        window.clear();
+        engine->update(clock.restart().asSeconds());
+        engine->draw();
+        uiRenderer.drawText(fpsText);
+        window.display();
     }
-    env->update(60);
-  }
 
-  return 0;
+    return 0;
 }

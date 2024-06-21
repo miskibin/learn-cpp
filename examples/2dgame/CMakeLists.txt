@@ -13,7 +13,7 @@ endif()
 
 # Find SFML
 find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
-add_executable(PhysicsSimulation main.cpp src/PhysicsShape.hpp src/circleWithPhisics.hpp src/constants.hpp src/environment.hpp)
+add_executable(PhysicsSimulation main.cpp src/physicsObject.hpp src/engine.hpp src/constants.hpp src/controllablePhysicsObject.hpp)
 target_link_libraries(PhysicsSimulation sfml-graphics sfml-window sfml-system spdlog fmt)
 
 # Include directories
@@ -23,6 +23,7 @@ find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
 add_executable(PhysicsShapeTest tests/PhysicsShapeTest.cpp)
+target_include_directories(PhysicsShapeTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(PhysicsShapeTest ${GTEST_BOTH_LIBRARIES} sfml-graphics sfml-window sfml-system  spdlog fmt)
 
 enable_testing()
