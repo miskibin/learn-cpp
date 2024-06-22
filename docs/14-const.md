@@ -22,7 +22,7 @@ int main()
 
 Keep in mind that if you create `const *int pointer` you can't change the value of the pointer, but you can change the value of the variable it points to.
 
-:::Order of const
+:::note Order of const
 
 ```cpp
 const int* x = 5;// x is a pointer to a constant integer
@@ -61,3 +61,18 @@ class MyClass {
 ```
 
 What does this code do? It returns a constant pointer to a constant integer. The function `foo` is a `const` member function, which means it does not modify the object it is called on. The return type of the function is a constant pointer to a constant integer, which means that the pointer and the integer it points to cannot be modified.
+
+
+### Mutable keyword
+
+The `mutable` keyword can be used to declare that a member variable can be modified in a `const` member function. This is useful when you have a member variable that needs to be modified in a `const` member function eg. for debugging purposes. 
+```cpp
+class MyClass {
+private:
+    mutable int x;
+public:
+    void foo() const {
+        x = 5; // This is allowed because x is mutable
+    }
+};
+```
