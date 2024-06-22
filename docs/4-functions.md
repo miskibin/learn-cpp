@@ -1,11 +1,9 @@
-# Functions
+# 🔧 Functions
 
-
-### Passing class objects to functions
+### 📦 Passing Class Objects to Functions
 
 ```cpp
-
-void PrintString(std::string string) { //it takes copy of the string
+void PrintString(std::string string) { // it takes a copy of the string
     string += " Doe";
     std::cout << string << std::endl;
 }
@@ -18,16 +16,15 @@ int main() {
 }
 ```
 
-More efficient way is to pass by reference:
+A more efficient way is to pass by reference:
 
 ```cpp
-
-void PrintString(std::string& string) { //it takes reference of the string
+void PrintString(std::string& string) { // it takes a reference to the string
     std::cout << string << std::endl;
 }
 
 int main() {
     std::string name = "John ";
-    PrintString(name);  // John Doe
+    PrintString(name);  // John
 }
 ```

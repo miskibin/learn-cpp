@@ -23,9 +23,9 @@ tutorialSidebar: [
     items: [
       'compiler',
       'linker',
+      'headers',
       'variables',
       'functions',
-      'operators',
       'ternary_operators',
       'const',
       'enums',
@@ -42,6 +42,7 @@ tutorialSidebar: [
     collapsed: true,
     items: [
       'classes_and_structs',
+      'operators',
       'interfaces',
       'visibility',
       'implicit_and_explicit',

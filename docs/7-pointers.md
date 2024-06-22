@@ -37,3 +37,23 @@ delete[] buffer; // delete the array.
 If we don't delete the array, it will cause memory leak. 
 It will take up memory until the program is closed.
 :::
+
+## Smart pointers
+
+
+### Unique pointer
+
+```cpp
+#include <memory>
+
+int main() {
+    std::unique_ptr<int> pointer = std::make_unique<int>(5); // pointer is now pointing to an integer with value 5
+    *pointer = 10; // pointer now points to 10
+    auto pointer2 = pointer // error. unique pointer can't be copied
+    auto pointer2 = std::move(pointer); // pointer2 now points to 10, pointer is now nullptr
+
+} // pointer is automatically deleted when it goes out of scope
+```
+
+:::tip why use `make_unique` instead of `new`?
+When constructor throws an exception, `new` will return a pointer to the object

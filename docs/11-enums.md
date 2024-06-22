@@ -1,6 +1,8 @@
-# Enums
+# 🗂️ Enums
 
 Enums, short for enumerations, are a way of defining a type in C++ that consists of named constants. Enums are used when we know all possible values a variable can have, and we want to restrict it to those values to avoid errors and make the code more readable.
+
+## 🔤 Basic Example
 
 Here's a basic example of an enum:
 
@@ -18,6 +20,8 @@ Day today = Monday;
 
 By default, the first value in an enum (in this case, `Sunday`) has a value of 0, and each subsequent value is one greater than the value of the previous one. So in this example, `Sunday` is 0, `Monday` is 1, `Tuesday` is 2, and so on.
 
+## 🔢 Specifying Values
+
 We can also specify the values of the enum members ourselves:
 
 ```cpp
@@ -26,7 +30,7 @@ enum Day {Sunday = 1, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday};
 
 In this example, `Sunday` is 1, `Monday` is 2, `Tuesday` is 3, and so on.
 
-### Different types of enums
+## ⚙️ Different Types of Enums
 
 ```cpp
 enum Day : char {Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday};
