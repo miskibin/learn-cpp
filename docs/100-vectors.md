@@ -75,3 +75,50 @@ Usually, it is **better to store elements as values** because:
 - elements are stored contiguously in memory. Iterating over the elements is faster.
 - no need to manage memory manually. The elements are automatically destroyed when the vector goes out of scope.
 Hovewer: **If you want to resize the vector often, it is better to store elements as pointers.** This way, you can avoid copying the elements every time the vector is resized.
+
+
+
+### Optimizing vector capacity
+
+When you know the number of elements that will be stored in the vector, you can reserve the memory in advance to avoid reallocation. This can improve performance by reducing the number of reallocations and copying of elements.
+
+**bad**
+
+```cpp
+struct Vertex {
+    float x, y, z;
+
+    Vertex(const Vertex& vertex) : x(vertex.x), y(vertex.y), z(vertex.z) {
+        std::cout << "Copied!" << std::endl;
+    }
+
+};
+
+int main() {
+    std::vector<Vertex> vertices;
+    vertices.push_back(Vertex{1, 2, 3});// Copied! 
+    //(We are constructing it in the current main function scope, and then copying it to the vector)
+    vertices.push_back({4, 5, 6}); // Copied!
+    vertices.push_back({7, 8, 9}); // Copied!, Copied!, Copied!, Copied!
+    // Our vector is resized and all elements are copied to the new memory location
+}
+
+
+```
+
+**good**
+
+```cpp
+int main() {
+    std::vector<Vertex> vertices;
+    vertices.reserve(3); //no need to resize the vector
+    vertices.emplace_back(1, 2, 3); // no copy
+    vertices.emplace_back(4, 5, 6); // no copy
+    vertices.emplace_back(7, 8, 9); // no copy
+}
+```
+
+:::note emplace_back vs push_back
+- `emplace_back` constructs the object in place, while `push_back` constructs the object in the current scope and then copies it to the vector.
+- `emplace_back` is more efficient because it avoids the extra copy.
+:::
