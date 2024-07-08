@@ -1,4 +1,6 @@
+#pragma once
 #include "PhysicsObject.hpp"
+#include "ControllablePhysicsObject.hpp"
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -30,11 +32,10 @@ public:
 
     const std::vector<ControllablePhysicsObject *> getControllableObjects()
     {
-        // if isControllable = True
         std::vector<ControllablePhysicsObject *> controllableObjects;
         for (auto object : this->objects)
         {
-            if (object->isControllable)
+            if (dynamic_cast<ControllablePhysicsObject*>(object)) 
             {
                 controllableObjects.push_back(static_cast<ControllablePhysicsObject *>(object));
             }

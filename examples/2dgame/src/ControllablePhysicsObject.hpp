@@ -1,12 +1,10 @@
 #pragma once
 #include "PhysicsObject.hpp"
-
+#include <spdlog/spdlog.h>
 class ControllablePhysicsObject : public PhysicsObject
 {
     friend class Engine;
 
-protected:
-    bool isControllable = true;
 
 public:
     using PhysicsObject::PhysicsObject;
@@ -17,19 +15,19 @@ public:
         {
             if (event.key.code == sf::Keyboard::Left)
             {
-                applyForce(sf::Vector2f(-10.f, 0.f));
+                applyImpulse(sf::Vector2f(-2.f, 0.f));
             }
             else if (event.key.code == sf::Keyboard::Right)
             {
-                applyForce(sf::Vector2f(10.f, 0.f));
+                applyImpulse(sf::Vector2f(2.f, 0.f));
             }
             else if (event.key.code == sf::Keyboard::Up)
             {
-                applyForce(sf::Vector2f(0.f, -10.f));
+                applyImpulse(sf::Vector2f(0.f, -2.f));
             }
             else if (event.key.code == sf::Keyboard::Down)
             {
-                applyForce(sf::Vector2f(0.f, 10.f));
+                applyImpulse(sf::Vector2f(0.f, 2.f));
             }
         }
     }

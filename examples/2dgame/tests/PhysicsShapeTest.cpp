@@ -8,7 +8,7 @@ TEST(PhysicsObjectTest, ApplyForce) {
   sf::CircleShape shape(50.f);
   PhysicsObject obj(&shape);
   sf::Vector2f initialAcceleration = obj.acceleration;
-  obj.applyForce(sf::Vector2f(10.f, 10.f));
+  obj.applyImpulse(sf::Vector2f(10.f, 10.f));
   ASSERT_EQ(obj.acceleration, initialAcceleration + sf::Vector2f(10.f, 10.f));
 }
 

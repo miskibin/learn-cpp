@@ -31,17 +31,16 @@ int main()
     sf::CircleShape circ(25.f);
     EventHandler eventHandler(window);
     circ.setFillColor(sf::Color::Green);
-    ControllablePhysicsObject r {&rect, 1.0f, sf::Vector2f(0, Constants::G), sf::Vector2f(0, 0)};
+    ControllablePhysicsObject r{&rect, 1.0f, sf::Vector2f(0, Constants::G), sf::Vector2f(0, 0)};
     PhysicsObject obj = PhysicsObject(&circ, 1.0f, sf::Vector2f(0, Constants::G), sf::Vector2f(0, 0));
     engine->add(&r);
     engine->add(&obj);
     sf::Text fpsText = uiRenderer.configureText("FPS: ", 24, sf::Color::White, sf::Vector2f(10.f, 10.f));
     sf::Clock clock;
-        sf::Event event;
+    sf::Event event;
     while (window.isOpen())
     {
-        eventHandler.handleEvents(engine->getControllableObjects());
-        
+
         auto fps = 1.f / clock.restart().asSeconds();
         fpsText.setString("FPS: " + std::to_string(static_cast<int>(fps)));
         window.clear();
@@ -49,6 +48,7 @@ int main()
         engine->draw();
         uiRenderer.drawText(fpsText);
         window.display();
+        eventHandler.handleEvents(engine->getControllableObjects(), event);
     }
 
     return 0;

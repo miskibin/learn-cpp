@@ -87,5 +87,6 @@
         "shared_mutex": "cpp"
     },
     "C_Cpp.default.compilerPath": "C:\\msys64\\ucrt64\\bin\\g++.exe",
-    "C_Cpp.intelliSenseEngineFallback": "disabled"
+    "C_Cpp.intelliSenseEngineFallback": "disabled",
+    "cmake.sourceDirectory": "C:/Users/miskibin/Desktop/cpp-learn/examples/2dgame"
 }
