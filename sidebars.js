@@ -32,6 +32,8 @@ tutorialSidebar: [
       'pointers',
       'references',
       'strings',
+      'Copying and Moving',
+      'RLvalues'
     ],
   },
   
@@ -57,6 +59,7 @@ tutorialSidebar: [
       'vectors',
       'maps',
       'memory',
+      'STL functions',
     ],
   },
   {
@@ -65,7 +68,6 @@ tutorialSidebar: [
     collapsible: true,
     collapsed: true,
     items: [
-
       'lambdas',
     ],
   },

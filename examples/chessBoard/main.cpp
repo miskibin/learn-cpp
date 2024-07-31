@@ -126,7 +126,7 @@ int main()
     int whiteWins = 0, draws = 0;
     for (auto i = 0; i < (int)openings.size(); i++)
     {
-        DrawableBoard board = DrawableBoard(openings[i]);
+        DrawableBoard board = DrawableBoard(std::move(openings[i]));
         moveTimes.push_back(playGame(&board, false, 0, DEPTH));
         auto [gameResultReason, gameResult] = board.isGameOver();
         if (board.sideToMove() == Color::BLACK && gameResult == GameResult::LOSE)
