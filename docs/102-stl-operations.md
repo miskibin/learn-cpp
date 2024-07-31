@@ -3,7 +3,7 @@
 ### `enable_if` and `enable_if_t`
 
 
-The syntax typename std::enable_if<condition, return_type>::type is used as the return type of a function template. If the condition is true, it defines the return type; if false, the function is removed from the overload set.
+The syntax typename `std::enable_if<condition, return_type>::type` is used as the return type of a function template. If the condition is true, it defines the return type; if false, the function is removed from the overload set.
 
 ```cpp
 #include <iostream>
