@@ -1,8 +1,10 @@
-# Interfaces in C++
+
+# 🔗 Interfaces in C++
 
 In C++, interfaces are implemented using abstract classes, defined by having at least one pure virtual function. These classes cannot be instantiated directly and must be extended by other classes. Interfaces enforce that all derived classes implement specific behaviors.
 
-:::note in python it would be
+:::note
+🐍 In Python it would be:
 ```python
 from abc import ABC, abstractmethod
 
@@ -13,7 +15,7 @@ class Interface(ABC):
 ```
 :::
 
-## Simple Interface Example
+## 🔰 Simple Interface Example
 
 Here's a straightforward example using a pure virtual function to define an interface in C++:
 
@@ -33,7 +35,7 @@ public:
 
 In this setup, `Entity` serves as an interface, and `Player` is a concrete class that implements the interface.
 
-## More Complex Interface
+## 🧩 More Complex Interface
 
 Interfaces can be used for more complex behaviors, such as enforcing a printable capability on various objects:
 
@@ -69,7 +71,7 @@ int main() {
 }
 ```
 
-### Key Points
+### 🔑 Key Points
 
 - **Pure Virtual Functions**: Define a pure virtual function with `= 0` to make a class abstract.
 - **Override**: Derived classes must override all pure virtual functions to be instantiated.

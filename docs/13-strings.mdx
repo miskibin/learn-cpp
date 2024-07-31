@@ -1,75 +1,19 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Strings and string literals
+## 📊 String
 
-## Char
-
-A `char` is a single byte of data, which can represent a single character. In C++, a `char` can be used to represent a character or a small integer. The ASCII table is a common way to map characters to integers. For example, the ASCII value of 'A' is 65, and 'a' is 97.
-
-Sure, here's how you can add tabs to your MDX file. The first tab will contain your current code, and the second tab will contain an example of an array of characters:
-
+A `string` is a sequence of characters. In C++, strings are represented by the `std::string` class, which is part of the C++ Standard Library. You can create a string by enclosing characters in double quotes.
 
 <Tabs
-  defaultValue="tab1"
+  defaultValue="basic"
   values={[
-    {label: 'Single Character', value: 'tab1'},
-    {label: 'Array of Characters', value: 'tab2'},
+    {label: 'Basic Usage', value: 'basic'},
+    {label: 'String Concatenation', value: 'concat'},
   ]}
 >
 
-<TabItem value="tab1">
-
-```cpp
-char character = 'A';
-
-std::cout << character << std::endl;  // A
-std::cout << (int)character << std::endl;  // 65
-```
-
-</TabItem>
-
-<TabItem value="tab2">
-
-```cpp
-char *characters = "Hello, World!";
-// char characters[] = "Hello, World!";
-
-std::cout << characters << std::endl;  // Hello, World!
-```
-
-</TabItem>
-
-</Tabs>
-
-:::tip what is difference between `char *str` and `char str[]`?
-`char *str` is a pointer to a character, while `char str[]` is an array of characters. The main difference is that `char *str` is a pointer that can be reassigned to point to different memory locations, while `char str[]` is an array that has a fixed size and cannot be reassigned.
-:::
-
-### Modyfying char array
-
-
-Good:
-
-```cpp
-char name[] = "John";
-name[0] = 'M';
-std::cout << name << std::endl;  // Mohn
-```
-
-Bad (undefined behavior):
-
-```cpp
-char *name = "John";
-name[0] = 'M';  // Error: assignment of read-only location
-```
-
-
-
-
-## String
-
-A `string` is a sequence of characters. In C++, strings are represented by the `std::string` class, which is part of the C++ Standard Library. You can create a string by enclosing characters in double quotes.
+<TabItem value="basic">
 
 ```cpp
 #include <string>
@@ -79,7 +23,29 @@ std::string name = "John Doe";
 std::cout << name << std::endl;  // John Doe
 ```
 
-How does computer know where the string ends?
+</TabItem>
+
+<TabItem value="concat">
+
+```cpp
+std::string firstName = "John";
+firstName += " Doe";  // John Doe (string has `+=` operator)
+std::string name = std::string("John") + "Doe"; // also works
+```
+
+</TabItem>
+
+</Tabs>
+
+:::caution
+The following will not work:
+```cpp
+std::string name = "John" + "Doe";  // Error: "John" is not considered as a string
+```
+:::
+
+### 🔍 How does the computer know where the string ends?
+
 The computer knows where the string ends by using a null-terminator character (`\0`). The null-terminator is a special character that marks the end of a string. When the computer encounters a null-terminator, it knows that the string has ended.
 
 ```cpp
@@ -89,41 +55,90 @@ char str2[3] = {'H', 'I', '\0'}; // \0 is the null-terminator
 std::cout << str2 << std::endl;  // HI
 ```
 
-#### Adding strings to each other
+## 🏷️ String literals
 
-```cpp
-std::string name = "John" + "Doe";  // Error: John is not considered as a string
-std::string firstName = "John";
-firstName += " Doe";  // John Doe (string has `+=` operator)
-std::string name = string("John") + "Doe"; // also works
-```
+String literals in C++ can have different prefixes to specify their encoding:
 
+| Prefix         | Description                                                                     | Example                            |
+| -------------- | ------------------------------------------------------------------------------- | ---------------------------------- |
+| None (Regular) | A sequence of characters. Can include escape sequences like `\n` for a newline. | `"Hello, World!\n"`                |
+| `R` (Raw)      | A sequence of characters that doesn't process escape sequences.                 | `R"(C:\Users\Username\Documents)"` |
+| `u8` (UTF-8)   | A sequence of UTF-8 encoded characters.                                         | `u8"こんにちは"`                   |
+| `u` (UTF-16)   | A sequence of UTF-16 encoded characters.                                        | `u"\u00B1"`                        |
+| `U` (UTF-32)   | A sequence of UTF-32 encoded characters.                                        | `U"\U0001F600"`                    |
+| `L` (Wide)     | A sequence of wide characters.                                                  | `L"Привет"`                        |
 
-
-# String literals
-
-## Chars:
-```cpp
-const wchar_t* wstr = L"Wide string"; // 2 bytes per character (Windows) 4 bytes (Linux)
-const char16_t* u16str = u"UTF-16 string"; // 2 bytes per character
-const char32_t* u32str = U"UTF-32 string";
-```
-
-## Strings 
+### 🔤 Using string literals
 
 ```cpp
 using namespace std::string_literals;
 
-std::string str = "Hello, World!"s + " I am a string"s;//this works! It is string now.
+std::string str = "Hello, World!"s + " I am a string"s; // This works! It is a string now.
 ```
 
-A string literal in C++ is a sequence of characters (including any escape sequences) surrounded by double quotes, optionally prefixed by `R`, `u8`, `u`, `U`, `L`. 
+## 👀 String views
 
-| Prefix         | Description                                                                     | Use Cases                                                                                     | Example                            |
-| -------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ---------------------------------- |
-| None (Regular) | A sequence of characters. Can include escape sequences like `\n` for a newline. | General purpose strings.                                                                      | `"Hello, World!\n"`                |
-| `R` (Raw)      | A sequence of characters that doesn't process escape sequences.                 | Strings that contain a lot of backslashes, such as regular expressions or Windows paths.      | `R"(C:\Users\Username\Documents)"` |
-| `u8` (UTF-8)   | A sequence of UTF-8 encoded characters.                                         | Working with Unicode text in a space-efficient manner.                                        | `u8"こんにちは"`                   |
-| `u` (UTF-16)   | A sequence of UTF-16 encoded characters.                                        | Working with Unicode text when you need more than the ASCII range but less than full Unicode. | `u"\u00B1"`                        |
-| `U` (UTF-32)   | A sequence of UTF-32 encoded characters.                                        | Working with Unicode text when you need to represent any Unicode character.                   | `U"\U0001F600"`                    |
-| `L` (Wide)     | A sequence of wide characters.                                                  | APIs that support international text, where each character may be more than one byte.         | `L"Привет"`                        |
+`std::string_view` is a non-owning reference to a string. It's more efficient than `std::string` for read-only operations.
+
+<Tabs
+  defaultValue="comparison"
+  values={[
+    {label: 'String vs String View', value: 'comparison'},
+    {label: 'String View Slicing', value: 'slicing'},
+  ]}
+>
+
+<TabItem value="comparison">
+
+```cpp
+#include <string>
+#include <string_view>
+#include <iostream>
+
+void processString(const std::string& s) {
+    // This potentially creates a copy of the string
+    std::cout << s << std::endl;
+}
+
+void processStringView(std::string_view sv) {
+    // This doesn't create a copy, just references the original string
+    std::cout << sv << std::endl;
+}
+
+int main() {
+    std::string original = "Hello, World!";
+    
+    processString(original);        // Might create a copy
+    processStringView(original);    // No copy, just a view
+    
+    processString("Hello, World!"); // Creates a temporary std::string
+    processStringView("Hello, World!"); // Uses the string literal directly
+}
+```
+
+</TabItem>
+
+<TabItem value="slicing">
+
+```cpp
+#include <string_view>
+#include <iostream>
+
+int main() {
+    std::string_view sv = "Hello, World!";
+    
+    // Efficient substring operations
+    std::cout << sv.substr(0, 5) << std::endl;  // Outputs: Hello
+    std::cout << sv.substr(7) << std::endl;     // Outputs: World!
+    
+    // No memory allocation or copying in these operations
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+:::tip
+`std::string_view` is typically just a pointer and a length, making it very cheap to copy and pass around. It can be used in constexpr contexts, which `std::string` cannot.
+:::

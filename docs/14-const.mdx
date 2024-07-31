@@ -1,12 +1,29 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # 🔒 Const Keyword
 
 ## 🔢 Variables
 
 The `const` keyword is used to declare a constant variable. A constant variable is a variable whose value cannot be changed after it has been assigned. The syntax for declaring a constant variable is as follows:
 
+<Tabs
+  defaultValue="basic"
+  values={[
+    {label: 'Basic Usage', value: 'basic'},
+    {label: 'Pointer Example', value: 'pointer'},
+  ]}
+>
+
+<TabItem value="basic">
+
 ```cpp
 const int x = 5;
 ```
+
+</TabItem>
+
+<TabItem value="pointer">
 
 ```cpp
 int main()
@@ -14,13 +31,19 @@ int main()
     const int AGE = 20;
     int* a = new int;
     *a = 10;
-    a = &AGE; // a value of type "const int *" cannot be assigned to an entity of type "int *"
+    a = &AGE; // Error: a value of type "const int *" cannot be assigned to an entity of type "int *"
     // bypassing it
     a = (int*)&AGE; // just reassigning the pointer to the address of AGE
 }
 ```
 
+</TabItem>
+
+</Tabs>
+
+:::caution
 Keep in mind that if you create `const *int pointer` you can't change the value of the pointer, but you can change the value of the variable it points to.
+:::
 
 :::note 📋 Order of const
 
@@ -51,6 +74,16 @@ It allows the compiler to catch errors where the function modifies the object it
 
 ### 🔍 Wild Example
 
+<Tabs
+  defaultValue="code"
+  values={[
+    {label: 'Code', value: 'code'},
+    {label: 'Explanation', value: 'explanation'},
+  ]}
+>
+
+<TabItem value="code">
+
 ```cpp
 class MyClass {
     const int* const foo() const {
@@ -59,7 +92,15 @@ class MyClass {
 };
 ```
 
+</TabItem>
+
+<TabItem value="explanation">
+
 What does this code do? It returns a constant pointer to a constant integer. The function `foo` is a `const` member function, which means it does not modify the object it is called on. The return type of the function is a constant pointer to a constant integer, which means that the pointer and the integer it points to cannot be modified.
+
+</TabItem>
+
+</Tabs>
 
 ### 🔄 Mutable Keyword
 
@@ -75,3 +116,21 @@ public:
     }
 };
 ```
+
+### constexpr Keyword
+
+The `constexpr` keyword is used to declare that a function or variable is evaluated at compile time. This can be useful for performance optimization, as it allows the compiler to evaluate the function or variable at compile time rather than at runtime.
+
+```cpp
+constexpr int square(int x) {
+    return x * x;
+}
+
+int main() {
+    int x = square(5); // x is assigned the value 25 at compile time
+}
+```
+
+:::warning ⚠️ Why it does not work with strings
+`constexpr` functions can only contain a single return statement, and they cannot contain any statements that are not evaluated at compile time. This means that `constexpr` functions cannot contain loops, conditionals, or any other statements that are evaluated at runtime.
+:::

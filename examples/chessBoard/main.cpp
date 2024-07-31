@@ -1,4 +1,5 @@
 #include <fmt/core.h>
+#include <string_view>
 #include <thread>
 #include <chrono>
 #include <algorithm>
@@ -11,40 +12,29 @@
 #include <fstream>
 #include <cstdlib> // for rand()
 #include "logger.cpp"
-#include "engine.hpp"
+#include "engine.cpp"
 using namespace fmt;
+using namespace chess;
+
 // Function to convert GameResultReason to string
-std::string gameResultReasonToString(GameResultReason reason)
-{
-    switch (reason)
-    {
-    case GameResultReason::NONE:
-        return "None";
-    case GameResultReason::CHECKMATE:
-        return "Checkmate";
-    case GameResultReason::STALEMATE:
-    default:
-        return "Unknown";
-    }
-}
 
 // Function to convert GameResult to string
-std::string gameResultToString(GameResult result)
-{
-    switch (result)
-    {
-    case GameResult::NONE:
-        return "Ongoing";
-    case GameResult::DRAW:
-        return "Draw";
-    case GameResult::WIN:
-        return "WIN";
-    default:
-        return "Unknown";
-    }
-}
 
-using namespace chess;
+const std::map<GameResultReason, std::string_view> gameReasonToStr{
+    {GameResultReason::CHECKMATE, "CHECKMATE"},
+    {GameResultReason::FIFTY_MOVE_RULE, "FIFTY_MOVE_RULE"},
+    {GameResultReason::INSUFFICIENT_MATERIAL, "INSUFFICIENT_MATERIAL"},
+    {GameResultReason::NONE, "NONE"},
+    {GameResultReason::STALEMATE, "STALEMATE"},
+    {GameResultReason::THREEFOLD_REPETITION, "THREEFOLD_REPETITION"},
+};
+const std::map<GameResult, std::string_view> gameResultToStr{
+    {GameResult::NONE, "ongoing"},
+    {GameResult::DRAW, "DRAW"},
+    {GameResult::WIN, "WIN"},
+    {GameResult::LOSE, "LOSE"},
+};
+
 double playGame(DrawableBoard *board, bool draw = true, int sleep = 0, int deep = 2)
 {
     auto e = Engine(deep);
@@ -70,7 +60,7 @@ double playGame(DrawableBoard *board, bool draw = true, int sleep = 0, int deep 
         auto [gameResultReason, gameResult] = board->isGameOver();
         if (gameResultReason != GameResultReason::NONE)
         {
-            std::cout << "MOVES " << board->fullMoveNumber() << " " << gameResultToString(gameResult) << " " << gameResultReasonToString(gameResultReason) << "\n";
+            std::cout << "MOVES " << board->fullMoveNumber() << " " << gameResultToStr.find(gameResult)->second << " " << gameReasonToStr.find(gameResultReason)->second << "\n";
             break;
         }
     }
@@ -110,7 +100,7 @@ void createReport(float averageMoveTime, int totalGames, int white, int draws, i
 int main()
 {
 
-    const std::array<std::string, 10> openings{
+    static constexpr std::array<std::string_view, 10> openings{
         "rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3",
         "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
         "rnbqkb1r/pppp1ppp/4pn2/8/2PP4/8/PP2PPPP/RNBQKBNR w KQkq - 0 3",
@@ -122,7 +112,7 @@ int main()
         "rnbqkb1r/pppppppp/5n2/8/8/1P3N2/P1PPPPPP/RNBQKB1R b KQkq - 2 2",
         "rnbqkb1r/pppppppp/5n2/8/8/3P4/PPP1PPPP/RNBQKBNR w KQkq - 1 2"};
     std::vector<double> moveTimes; // Vector to store move times
-    int DEPTH = 3;
+    const int DEPTH = 3;
     int whiteWins = 0, draws = 0;
     for (auto i = 0; i < (int)openings.size(); i++)
     {
@@ -137,14 +127,5 @@ int main()
     double totalMoveTime = std::accumulate(moveTimes.begin(), moveTimes.end(), 0.0);
     double averageMoveTime = totalMoveTime / moveTimes.size();
     createReport(averageMoveTime, openings.size(), whiteWins, draws, DEPTH);
-    // 1 - 0.00046
-    // 2 - 0.0119818 -> 0.039
-    // 3 - 0.169818 -> transposition - 0.108 -> extension -  0.152314
-    // 3
-    // Average time per move: 0.224878 seconds
-    // Total games: 10
-    // White wins: 1
-    // Draws: 6
-    // Black wins: 3
     return 0;
 }

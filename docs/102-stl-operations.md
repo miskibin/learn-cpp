@@ -102,7 +102,41 @@ int main()
 }
 ```
 
+### `std::variant`
+
+Type-safe union
+
+```cpp
+#include <iostream>
+#include <variant>
+#include <string>
+
+int main() {
+    std::variant<int, float, std::string> var;
+
+    var = 42;
+    std::cout << std::get<int>(var) << std::endl;
+
+    var = 3.14f;
+    std::cout << std::get<float>(var) << std::endl;
+
+    var = "Hello, World!";
+    std::cout << std::get<std::string>(var) << std::endl;
+
+    return 0;
+}
+```
+
+- **`std::get<T>`**: Accesses the value of type `T`.
+- **`std::visit`**: Applies a visitor to the value.
+
+```cpp
+std::visit([](auto&& arg) { std::cout << arg << std::endl; }, var);
+```
+
+
+
+
 ### `forward`
 
 TBD
-

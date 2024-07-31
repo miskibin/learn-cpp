@@ -1,0 +1,127 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 🎭 Lambdas
+
+Just like in Python, you can define lambdas in C++. Lambdas are anonymous functions that can be defined inline.
+
+<Tabs
+  defaultValue="basic"
+  values={[
+    {label: 'Basic Lambda', value: 'basic'},
+    {label: 'Capture Modes', value: 'capture'},
+  ]}
+>
+
+<TabItem value="basic">
+
+```cpp
+auto add = [](int x, int y) -> int {
+    return x + y;
+};
+
+LOG(add(5, 3)); // Outputs: 8
+```
+
+</TabItem>
+
+<TabItem value="capture">
+
+```cpp
+// Capture by value
+auto f1 = [=](int x) -> int {
+    return x + 5; // error. x was captured by value
+};
+
+// Capture by value with mutable
+auto f2 = [=](int x) mutable -> int {
+    return x + 5; // It won't change the value of x but it will work.
+};
+
+// Capture by reference
+auto f3 = [&](int x) -> int {
+    return x + 5; // ok. x was captured by reference
+};
+```
+
+</TabItem>
+
+</Tabs>
+
+## 🔍 Lambda Syntax
+
+The syntax for a lambda function in C++ is as follows:
+
+```cpp
+[ capture clause ] ( parameters ) -> return_type { 
+    // function body
+}
+```
+
+- **Capture clause**: Specifies which variables from the enclosing scope are available inside the lambda function.
+- **Parameters**: The input parameters for the lambda function (optional).
+- **Return type**: The return type of the lambda function (optional, can be deduced by the compiler in many cases).
+- **Function body**: The code to be executed when the lambda is called.
+
+## 📦 Capture Modes
+
+Lambdas can capture variables from their surrounding scope in different ways:
+
+- `[=]`: Capture all variables by value
+- `[&]`: Capture all variables by reference
+- `[x, &y]`: Capture x by value and y by reference
+- `[this]`: Capture the this pointer of the enclosing class
+
+:::tip 💡 When to use mutable
+Use the `mutable` keyword when you need to modify variables captured by value inside the lambda. Without `mutable`, the lambda's operator() is treated as const, preventing modification of captured-by-value variables.
+:::
+
+## 🎯 Use Cases
+
+Lambdas are particularly useful in scenarios where you need a short function for a limited scope, such as:
+
+1. Sorting with custom comparators
+2. Defining callback functions
+3. Working with algorithms from the C++ Standard Library
+
+<Tabs
+  defaultValue="sort"
+  values={[
+    {label: 'Custom Sort', value: 'sort'},
+    {label: 'std::transform', value: 'transform'},
+  ]}
+>
+
+<TabItem value="sort">
+
+```cpp
+std::vector<int> numbers = {4, 2, 3, 1, 5};
+std::sort(numbers.begin(), numbers.end(), [](int a, int b) {
+    return a > b; // Sort in descending order
+});
+```
+
+</TabItem>
+
+<TabItem value="transform">
+
+```cpp
+std::vector<int> numbers = {1, 2, 3, 4, 5};
+std::vector<int> squared;
+std::transform(numbers.begin(), numbers.end(), std::back_inserter(squared),
+    [](int x) { return x * x; });
+```
+
+</TabItem>
+
+</Tabs>
+
+:::note 📋 Auto Return Type Deduction
+In C++14 and later, you can omit the return type in many cases, and the compiler will deduce it:
+
+```cpp
+auto multiply = [](int x, int y) {
+    return x * y; // Return type is deduced to be int
+};
+```
+:::
