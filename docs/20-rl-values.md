@@ -42,7 +42,7 @@ int main()
 }
 ```
 
-:::{tip} assigning rvalue to reference 
+:::warning assigning rvalue to reference 
 ```cpp
 const int& a = 4; // a is an lvalue reference
 ```

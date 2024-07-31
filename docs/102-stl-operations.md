@@ -40,7 +40,7 @@ int main() {
 }
 ```
 
-:::{note} enable_if_t
+:::note enable_if_t
 `std::enable_if_t` is a C++14 feature that simplifies the syntax by defining the return type directly. It is equivalent to `typename std::enable_if<condition, return_type>::type`. For example, `std::enable_if_t<std::is_integral<T>::value, bool>` is equivalent to `typename std::enable_if<std::is_integral<T>::value, bool>::type`.
 :::
 
