@@ -1,6 +1,7 @@
 # Dependencies
 /node_modules
-
+/build/*
+examples/chessBoard/build/*
 */include/*
 *include/*
 examples/game2d/include/*
