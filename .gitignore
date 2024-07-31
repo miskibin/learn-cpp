@@ -3,6 +3,9 @@
 
 */include/*
 *include/*
+*/build/*
+/examples/chessBoard/build/
+/examples/chessBoard/build/*
 examples/game2d/include/*
 /oatpp/*
 /oatpp/
