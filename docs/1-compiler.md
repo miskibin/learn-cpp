@@ -1,66 +1,44 @@
-# How compiler works? 
+# 🛠️ Compilers Overview
 
-A compiler is a program that translates human-readable source code into computer-executable machine code. Here's a simplified overview of how it works:
+A compiler translates source code into machine code. The process involves several stages:
 
-## Preprocessed file `.i`
+## ⚙️ Preprocessing
 
-The preprocessing stage handles directives like `#include`, `#define`, and `#if`.
+- **Directives** (`#` symbol) instruct the compiler for initial processing.
+- `#include`: Inserts another file's content.
+- `#define`: Defines macros for code abbreviations.
+- `#if`: Conditionally compiles code blocks.
+- `#pragma`: Provides compiler-specific instructions, like `#pragma once` to prevent multiple inclusions.
 
+## 🔧 Compilation to Object File
 
-### Include
-1. When including included content is pasted in the place. 
+- **Translation Unit**: A single source file plus its included headers.
+- **.i File**: Result of preprocessing, further compiled into assembly language.
+- **.o File**: The assembly is then compiled into an object file, a step closer to executable machine code.
 
+:::tip
+Use `objdump -d -M intel -S file.o` to view an object file's assembly code in a readable format.
+:::
 
-
-```cpp
-
-void function(){
-#include "EndBrace.h"
-```
-
-Will work.
-
-For example `#include <iostream>` will add 50k lines.
-
-
-### Define 
+### 📋 Examples of preprocessor directives:
 
 ```cpp
+#define LOG(x) std::cout << x << std::endl; // Macro for printing to console
 
-#define LOG(x) std::cout << x << std::endl;
+#define INTEGER int // Macro for using 'INTEGER' instead of 'int'
 
-#define INTIGER int
-
-INTIGER add(int a, int b){
-    LOG(a);
-    return a + b;
+INTEGER add(INTEGER a, INTEGER b) {
+  LOG(a); // Replaced with std::cout << a << std::endl;
+  return a + b;
 }
 ```
 
-### IF
+In this example, `LOG(x)` is a macro that expands to `std::cout << x << std::endl;`, providing a concise way to print messages to the console. Similarly, `INTEGER` is a macro that expands to `int`, making your code more readable.
 
 ```cpp
-#if 1
-int FunctionThatWillHideWhenConditionFails()
+#if 1 // Always true in this case
+int FunctionThatWillHideWhenConditionFails() {
+  // Code here will be included during compilation
+}
 #endif
 ```
-
-### pragma
-
-```cpp
-#pragma once
-```
-Ensures the file is only included once in a single compilation. Etc. Prevents us to include 1 header file multiple times into 1 translation unit.
-
-#### What is translation unit?
-
-A translation unit is a single source file and all the files that it includes, either directly or indirectly.
-
-## OBJ file
-
-Create assembly output in hex. 
-
-:::note
-It is possible to show pretty assembly code 
-`objdump -d -M intel -S file.o`
-:::

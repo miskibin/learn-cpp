@@ -1,12 +1,10 @@
-# Header files
+# 📂 Header Files
 
-## Why do we need header files?
+:::warning Why Do We Need Header Files?
+If you try to run a function from another file, the compiler does not know that it exists. That's why we create only the declaration of the function in the file where we want to use it.
+:::
 
-If you try to run function from another file, compiler does not know that it exists. 
-That is wht we can create only declaration of the function in the file that we want to use it.
-
-## Declaration
-
+## 📝 Declaration
 
 ```cpp
 // main.cpp
@@ -15,43 +13,42 @@ void Log(const char* message);
     Log("Hello");
 }
 
-int main(){
+int main() {
     Log("Hello");
 }
-
 ```
 
 ```cpp
 // module.cpp
 void initLog();
 {
-    Log("Hello");// This function is not defined in this file it will throw error
+    Log("Hello"); // This function is not defined in this file; it will throw an error
 }
 ```
 
-#### After adding declaration 
+### ✅ After Adding Declaration 
+
 ```cpp
-void log(const char* message);
+void Log(const char* message);
 void initLog();
 {
-    Log("Hello");// Now it will work
+    Log("Hello"); // Now it will work
 }
 ```
 
-## Header files
+## 📑 Header Files
 
-Instead of writing declaration in every file that we want to use the function we can create a header file.
+Instead of writing the declaration in every file where we want to use the function, we can create a header file.
 
 ```cpp
 // Log.h
 void Log(const char* message);
 ```
 
-### When do we use `<>` and when `""`?
+### 📌 When Do We Use `<>` and When `""`?
 
-When we use `<>` we are telling the compiler to look for the file in the system directories. 
-When we use `""` we are telling the compiler to look for the file in the current directory.
+When we use `<>`, we are telling the compiler to look for the file in the system directories. When we use `""`, we are telling the compiler to look for the file in the current directory.
 
-:::info Why some libraries have `.h` at the end?
-In general libraries that have `.h` at the end are C libraries. Without `.h` are C++ libraries.
+:::info 💡 Why do some libraries have `.h` at the end?
+In general, libraries that have `.h` at the end are C libraries. Those without `.h` are C++ libraries.
 :::

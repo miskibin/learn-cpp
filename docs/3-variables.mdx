@@ -1,19 +1,19 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Variables
+# 🗃️ Variables
 
-- **Declaration**: A variable declaration provides assurance to the compiler that there exists a variable with the given type and name so that the compiler can proceed for further compilation without requiring the complete detail about the variable. A variable declaration has its meaning at the time of compilation only, the compiler needs actual variable declaration at the time of linking the program.
+- **📝 Declaration**: A variable declaration provides assurance to the compiler that there exists a variable with the given type and name so that the compiler can proceed for further compilation without requiring the complete detail about the variable. A variable declaration has its meaning at the time of compilation only; the compiler needs the actual variable definition at the time of linking the program.
 
-- **Definition**: A variable definition means to tell the compiler where to create the variable's storage, and to reserve the appropriate amount of space in memory. The difference between declaration and definition is that declaration is like introducing the variable and definition is like creating the variable.
+- **📦 Definition**: A variable definition means to tell the compiler where to create the variable's storage and to reserve the appropriate amount of space in memory. The difference between declaration and definition is that declaration is like introducing the variable, and definition is like creating the variable.
 
-- **Initialization**: Initialization of a variable is to give a value to the variable at the time of declaration. The initial value may be provided in the declaration, and in the case of class types, this initial value is used to initialize the object.
+- **⚡ Initialization**: Initialization of a variable is to give a value to the variable at the time of declaration. The initial value may be provided in the declaration, and in the case of class types, this initial value is used to initialize the object.
 
-- **Scope**: The scope of a variable determines the portion of the code where a variable can be accessed. The three types of scopes in C++ are global scope, local scope, and class scope.
+- **🌐 Scope**: The scope of a variable determines the portion of the code where a variable can be accessed. The three types of scopes in C++ are global scope, local scope, and class scope.
 
-- **Lifetime**: The lifetime of a variable refers to the period during which the variable exits in the memory while the program is executing. The lifetime of variables inside a function is as long as the function executes, they are destroyed as soon as the function returns. The variable that is declared outside of all the functions is destroyed only when the main function has run to completion.
+- **⌛ Lifetime**: The lifetime of a variable refers to the period during which the variable exists in memory while the program is executing. The lifetime of variables inside a function is as long as the function executes; they are destroyed as soon as the function returns. The variable that is declared outside of all the functions is destroyed only when the main function has run to completion.
 
-## sizeof
+## 📏 sizeof
 
 ```cpp
 sizeof(int); // 4
@@ -31,18 +31,18 @@ sizeof(char); // 1
 | `bool`     | 1            |
 | `long long`| 8            |
 
-If you want to get length of the array you can use:
+If you want to get the length of the array, you can use:
+
 ```cpp
 int array[] = {1, 2, 3, 4, 5};
 int length = sizeof(array) / sizeof(array[0]); // 20/4 = 5
 ```
 
-
-:::warning Can you trust the size of the array?
+:::warning ⚠️ Can you trust the size of the array?
 The size of the array is not always reliable. If you pass an array to a function, it decays into a pointer, and the size information is lost. You should always pass the size of the array along with the array to avoid buffer overflows and other memory-related issues.
 :::
 
-## Primitive Casting
+## 🔄 Primitive Casting
 
 In C++, you can perform casting between primitive types. This is often necessary when you want to convert one primitive type to another. There are two types of casting available for primitive types:
 
@@ -62,23 +62,23 @@ In C++, you can perform casting between primitive types. This is often necessary
 
 In explicit casting, you can use the `static_cast` operator for safe casting. However, if you are sure about the types and want to force a conversion, you can use C-style casting:
 
-:::tip Why static_cast is better than C-style casting?
-`static_cast` is safer than C-style casting because it performs additional checks during compilation to ensure type safety. It is also more readable and less error-prone. C-style casting can lead to undefined behavior if used incorrectly.
-:::
-
-## Arrays 
-> Arrays are basically collection of variables in one variable.
-
 ```cpp
 double d = 45.67;
 int i = (int)d;  // C-style casting from double to int
+```
+
+:::tip 💡 Why is `static_cast` better than C-style casting?
+`static_cast` is safer than C-style casting because it performs additional checks during compilation to ensure type safety. It is also more readable and less error-prone. C-style casting can lead to undefined behavior if used incorrectly.
+:::
+
+## 🧮 Arrays 
+> Arrays are basically a collection of variables in one variable.
 
 ```cpp
 int array[5] = {1, 2, 3, 4, 5};
 ```
 
-
-### Pointers arithmetic
+### 📐 Pointers Arithmetic
 
 ```cpp
 int array[5] = {1, 2, 3, 4, 5};
@@ -87,32 +87,31 @@ int* ptr = array;
 std::cout << *ptr << std::endl;  // 1
 std::cout << *(ptr + 1) << std::endl;  // 2
 ```
-:::warning How many bytes were added to the pointer?
-When you add an integer `1` to a pointer, the pointer is incremented by the size of the type it points to. In this case, `ptr` is an `int*`, so adding `1` to it increments the pointer by `sizeof(int)`  (4) bytes.
+
+:::warning ⚠️ How many bytes were added to the pointer?
+When you add an integer `1` to a pointer, the pointer is incremented by the size of the type it points to. In this case, `ptr` is an `int*`, so adding `1` to it increments the pointer by `sizeof(int)` (4 bytes).
 :::
 
-### New and Delete
+### 🆕 New and 🗑️ Delete
 
-**When to use new keyword?**
+**When to use the `new` keyword?**
 The `new` keyword is used to dynamically allocate memory on the heap. It is used when you need to allocate memory at runtime, and the size of the memory is not known at compile time. When you use `new`, you are responsible for releasing the memory using the `delete` keyword.
 
 ```cpp
 int main() {
-int createdOnTheStack = 5; // this will get deleted automatically when it goes out of scope
-int* ptr = new int[5];
-std::cout << *ptr << std::endl;  // 5
+    int createdOnTheStack = 5; // this will get deleted automatically when it goes out of scope
+    int* ptr = new int[5];
+    std::cout << *ptr << std::endl;  // 5
 
-delete ptr; 
+    delete[] ptr; 
 } // createdOnTheStack is deleted here
 ```
 
-:::warning What happens if you forget to delete the memory?
+:::warning ⚠️ What happens if you forget to delete the memory?
 If you forget to delete the memory allocated using `new`, it will lead to a memory leak. A memory leak occurs when memory is allocated but not deallocated, causing the program to consume more memory than necessary. This can lead to performance issues and crashes in the long run.
 :::
 
-
-### Good and bad practices
-
+### 👍 Good and 👎 Bad Practices
 
 <Tabs
   defaultValue="tab1"
@@ -146,7 +145,8 @@ class Entity {
 
 ```cpp
 class Entity {
-    int  example[5];
+    int example[5];
+
     Entity() {
         for (int i = 0; i < 5; i++) {
             example[i] = 2;
@@ -159,22 +159,22 @@ class Entity {
 
 </Tabs>
 
-:::tip Which one is better?
+:::tip 💡 Which one is better?
 Using a static array is better than a dynamic array because it is more efficient and less error-prone. Static arrays are allocated on the stack, which is faster than dynamic memory allocation on the heap. Static arrays are also automatically deallocated when they go out of scope, whereas dynamic arrays require manual deallocation using `delete`.
 :::
 
-
-## Standard Arrays
+## 📚 Standard Arrays
 
 ```cpp
 #include <array>
 
 std::array<int, 5> arr = {1, 2, 3, 4, 5};
 ```
-Why is it better than a regular array?
-- It knows its size
-- It can be passed by value
-- It has some useful methods
+
+### 🤔 Why is it better than a regular array?
+- It knows its size.
+- It can be passed by value.
+- It has some useful methods.
 
 ```cpp
 std::array<int, 5> arr = {1, 2, 3, 4, 5};

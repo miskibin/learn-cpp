@@ -1,4 +1,5 @@
-# `=`, `new`, `delete`, `==`, `+=`, etc.
+# Operators
+> `=`, `new`, `delete`, `==`, `+=`, etc.
 
 :::tip  It is just like dunder methods in Python
 In C++, operators are implemented as functions. These functions can be overloaded to work with user-defined types. 

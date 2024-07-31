@@ -2,11 +2,11 @@
 #include <algorithm>
 #include <vector>
 
-std::ostream &operator<<(std::ostream &os, const DrawableBoard &board)
-{
-    os << "  a b c d e f g h\n";
-    return os;
-}
+// std::ostream &operator<<(std::ostream &os, const DrawableBoard &board)
+// {
+//     os << "  a b c d e f g h\n";
+//     return os;
+// }
 
 std::vector<char> DrawableBoard::resolveFen(const std::string fen) const
 {
@@ -61,8 +61,9 @@ auto pieces = resolveFen(fen);
             }
         }
         std::cout << " |" << std::endl;
+        std::cout<< "----------------------------------\n";
     }
-
+    std::cout<<"\n";
 }
 
 std::string DrawableBoard::moveFromUci(const std::string uci)
