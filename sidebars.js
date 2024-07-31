@@ -32,8 +32,8 @@ tutorialSidebar: [
       'pointers',
       'references',
       'strings',
-      'Copying and Moving',
-      'RLvalues'
+      'copying',
+      'rl-values'
     ],
   },
   
@@ -59,7 +59,7 @@ tutorialSidebar: [
       'vectors',
       'maps',
       'memory',
-      'STL functions',
+      'stl-operations',
     ],
   },
   {
